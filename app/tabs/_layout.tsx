@@ -8,6 +8,8 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
+  const iconSize = 15;
+
   return (
     <Tabs
       screenOptions={{
@@ -17,10 +19,17 @@ export default function TabLayout() {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: '#98E6AE',
-        }
+          borderTopWidth: 0,
+          height: 70, // Increase the height of the tab bar
+        },
+        tabBarIconStyle: {
+          marginBottom: 5, // Add some margin to the bottom of the icon
+        },
+        tabBarLabelPosition: 'below-icon',
       }}>
       <Tabs.Screen
         name="HomeScreen"
+        size={iconSize}
         options={{
           title: 'Home',
           tabBarIcon: ({ focused }) => (
@@ -40,7 +49,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="AddScreen"
         options={{
-          title: 'ImageInput',
+          title: 'Add',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
           ),
@@ -49,7 +58,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="DocScreen"
         options={{
-          title: 'ImageGrid',
+          title: 'Documents',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
           ),
