@@ -11,40 +11,54 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        tabBarActiveTintColor: 'black',
+        tabBarInactiveTintColor: 'black',
+        tabBarActiveBackgroundColor: '#3FC385',
         headerShown: false,
+        tabBarStyle: {
+          backgroundColor: '#98E6AE',
+        }
       }}>
       <Tabs.Screen
-        name="index"
+        name="HomeScreen"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon name={focused ? 'home' : 'home-outline'} />
           ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="TaxScreen"
         options={{
-          title: 'Explore',
+          title: 'Tax',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="AddScreen"
         options={{
-          title: 'Profile',
+          title: 'ImageInput',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="test"
+        name="DocScreen"
         options={{
-          title: 'Test',
+          title: 'ImageGrid',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="ProfileScreen"
+        options={{
+          title: 'Profile',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
           ),
