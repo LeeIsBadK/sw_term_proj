@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useRoute, RouteProp } from '@react-navigation/native';
+
+type RootStackParamList = {
+  HomeScreen: { taxAmount: number };
+};
+
+type HomeScreenRouteProp = RouteProp<RootStackParamList, 'HomeScreen'>;
 
 const HomeScreen = () => {
-  const [number, setNumber] = useState(0);
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const route = useRoute<HomeScreenRouteProp>();
+  const { taxAmount } = route.params;
+
+  const [currentYear] = useState(new Date().getFullYear());
 
   return (
     <View style={styles.container}>
       <Text style={styles.header}> YOUR TAX THIS YEAR </Text>
       <Text style={styles.yearText}> {currentYear} </Text>
       <View style={styles.box}>
-        <Text style={styles.numberText}> {number} </Text>
+        <Text style={styles.numberText}> {taxAmount} </Text>
       </View>
     </View>
   );
