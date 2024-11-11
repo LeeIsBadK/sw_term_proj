@@ -280,7 +280,7 @@ const styles = StyleSheet.create({
     color: 'gray', 
   },
   editButton: {
-    backgroundColor: 'lightgray',
+    backgroundColor: 'lightblue',
     padding: 5,
     borderRadius: 5,
   },
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   filterButton: {
-    backgroundColor: 'lightgreen',
+    backgroundColor: '#007bff',
     padding: 10,
     borderRadius: 5,
   },

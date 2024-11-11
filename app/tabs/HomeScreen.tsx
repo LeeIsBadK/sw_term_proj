@@ -1,13 +1,47 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Pressable} from 'react-native';
+import { View, Text, TextInput, StyleSheet, Pressable, Button} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import SwitchSelector from 'react-native-switch-selector';
+
 
 const HomeScreen = () => {
-  const [number, setNumber] = useState(12300000);
+  const [number, setNumber] = useState(123456);
+  const [tax, setTax] = useState(123456)
+  const [deduction, setDeduction] = useState(1000);
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [showFullNumber, setShowFullNumber] = useState(true);
+  const [showDeduction, setShowDeduction] = useState(true);
+  const [showFullTax, setShowFullTax] = useState(false);
+  const [showForm, setForm] = useState(false);
+
+  const [income, setIncome] = useState<number>(0);
+  const [expenses, setExpenses] = useState<number>(0);
+  const [deductions, setDeductions] = useState<number>(0);
+  const [donations, setDonations] = useState<number>(0);
+  const [taxAmount, setTaxAmount] = useState<number | null>(null);
 
   const toggleNumberVisibility = () => {
     setShowFullNumber(!showFullNumber);
+  };
+
+  const toggleDeductionVisibility = () => {
+    setShowDeduction(!showDeduction);
+  };
+
+  const toggleForm = () => {
+    console.log('toggle')
+    setForm(!showForm);
+    console.log('return', tax);
+    setNumber(tax - deduction);
+  }
+
+  const toggleTaxDisplay = (value: any) => {
+    if (value) {
+      setNumber(tax);
+    } else {
+      setNumber(tax - deduction);
+    }
+    setShowFullTax(!showFullTax);
   };
 
   function numberHider(number: number) {
@@ -23,11 +57,52 @@ const HomeScreen = () => {
     return formattedNumber;
   }
 
-  const formattedNumber = showFullNumber
-    ? number.toLocaleString() // Add commas using toLocaleString()
-    : numberHider(number);
+  const formattedNumber = (show, num) => {
+    return (show ? num.toLocaleString() : numberHider(num));
+  }
+
+  const calculateTax = () => {
+    // คำนวณเงินได้สุทธิ
+    const netIncome = income - expenses - deductions - donations;
+
+    // คำนวณภาษีตามวิธีที่ 1: จากเงินได้สุทธิ
+    const taxFromNetIncome = calculateTaxFromNetIncome(netIncome);
+
+    // คำนวณภาษีตามวิธีที่ 2: จากเงินได้พึงประเมิน
+    const taxFromAssessableIncome = calculateTaxFromAssessableIncome(income);
+
+    // เลือกภาษีที่สูงกว่า
+    // const finalTax = Math.max(taxFromNetIncome, taxFromAssessableIncome);
+    const finalTax = taxFromNetIncome;
+    const full = calculateTaxFromNetIncome(income);
+    console.log(finalTax)
+    console.log(full)
+    setTaxAmount(finalTax);
+    setTax(full)
+    setDeduction(full-finalTax)
+    console.log('show', tax)
+    setNumber(tax - deduction);
+  };
+
+  // ฟังก์ชันคำนวณภาษีตามวิธีที่ 1 จากเงินได้สุทธิ
+  const calculateTaxFromNetIncome = (netIncome: number): number => {
+    if (netIncome <= 150000) return 0;
+    else if (netIncome <= 300000) return (netIncome - 150000) * 0.05;
+    else if (netIncome <= 500000) return (netIncome - 300000) * 0.10 + 7500;
+    else if (netIncome <= 750000) return (netIncome - 500000) * 0.15 + 27500;
+    else if (netIncome <= 1000000) return (netIncome - 750000) * 0.20 + 65000;
+    else if (netIncome <= 2000000) return (netIncome - 1000000) * 0.25 + 115000;
+    else if (netIncome <= 5000000) return (netIncome - 2000000) * 0.30 + 365000;
+    else return (netIncome - 5000000) * 0.35 + 1265000;
+  };
+
+  // ฟังก์ชันคำนวณภาษีตามวิธีที่ 2 จากเงินได้พึงประเมิน
+  const calculateTaxFromAssessableIncome = (income: number): number => {
+    return income * 0.005;
+  };
 
   const gridItems = [
+    { title: '2567' },
     { title: '2566' },
     { title: '2565' },
     { title: '2564' },
@@ -37,21 +112,97 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}> YOUR TAX THIS YEAR </Text>
-      <Text style={styles.yearText}> {currentYear} </Text>
-      <View style={styles.box}>
-        <Text style={styles.numberText}> {formattedNumber} </Text>
-        <Pressable style={styles.button} onPress={toggleNumberVisibility}>
-          <Text style={styles.text}> {showFullNumber ? "hide":"show"}</Text>
+      {showForm ?
+      (
+        <>
+        <Text style={styles.label}>เงินได้พึงประเมิน (ม.ค. - มิ.ย. 2565):</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          placeholder="เช่น 500000"
+          onChangeText={(value) => setIncome(parseFloat(value) || 0)}
+        />
+        <Text style={styles.label}>ค่าใช้จ่าย:</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          placeholder="เช่น 100000"
+          onChangeText={(value) => setExpenses(parseFloat(value) || 0)}
+        />
+        <Text style={styles.label}>ค่าลดหย่อน:</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          placeholder="เช่น 50000"
+          onChangeText={(value) => setDeductions(parseFloat(value) || 0)}
+        />
+        <Text style={styles.label}>เงินบริจาค:</Text>
+        <TextInput
+          style={styles.input}
+          keyboardType="numeric"
+          placeholder="เช่น 2000"
+          onChangeText={(value) => setDonations(parseFloat(value) || 0)}
+        />
+        <Button title="คำนวณภาษี" onPress={calculateTax} />
+        {taxAmount !== null && (
+          <Text style={styles.result}>ภาษีที่ต้องจ่าย: {taxAmount.toFixed(2)} บาท</Text>
+        )}
+        <Pressable style={{width: '50%', height: 30, backgroundColor: 'lightgray', alignItems: 'center', justifyContent: 'center', marginTop: 10}} onPress={toggleForm}>
+          <Text> return </Text>
         </Pressable>
-      </View>
-      <View style={styles.gridContainer}>
-        {gridItems.map((item, index) => (
-          <Pressable key={index} style={styles.gridItem}>
-            <Text style={styles.itemText}>{item.title}</Text>
+        </>
+      ):(
+        <>
+        <Text style={styles.header}> YOUR TAX THIS YEAR </Text>
+        <Text style={styles.yearText}> {currentYear + 543} </Text>
+        <SwitchSelector style={{width: 200}}
+          options={[{ label: "deducted tax", value: false }, { label: "full tax", value: true }]}
+          initial={0}
+          textColor={'lightgray'}
+          selectedColor={'black'}
+          buttonColor={'#98E6AE'}
+          hasPadding={true}
+          borderColor={'#98E6AE'}
+          fontSize={10}
+          valuePadding={2}
+          height={25}
+          onPress={(value) => toggleTaxDisplay(value)}
+        />
+        <View style={{ alignItems: 'center'}}>
+          <Text style={[styles.numberText, {fontSize: 48}]}> {formattedNumber(showFullNumber, number)} </Text>
+          <Pressable onPress={toggleNumberVisibility}>
+            <Ionicons name={showFullNumber ? "eye-outline": "eye-off-outline"} size={24} color="lightgray" />
           </Pressable>
-        ))}
-      </View>
+        </View>
+        <View style={{height: 50, width: '100%'}}>
+          <Pressable onPress={toggleForm}><View style={{height: 40, width: '100%'}}/></Pressable>
+        </View>
+        <View style={styles.box}>
+          <View>
+            <Text style={[styles.numberText, {fontSize: 14}]}> Deduction </Text>
+            <Text style={[styles.numberText, {fontSize: 10, color: '#3FC385'}]}> see details </Text>
+          </View>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <Text style={styles.numberText}> {formattedNumber(showDeduction, deduction)} </Text>
+            <Pressable onPress={toggleDeductionVisibility}>
+              <Ionicons name={showDeduction ? "eye-outline": "eye-off-outline"} size={24} color="lightgray" />
+            </Pressable>
+          </View>
+        </View>
+        <View style={styles.gridContainer}>
+          {gridItems.map((item, index) => (
+            <Pressable key={index} style={styles.gridItem}>
+              <Text style={styles.itemText}>{item.title}</Text>
+            </Pressable>
+          ))}
+        </View>
+        <View style={{flex: 1}}></View>
+        <Pressable onPress={() => console.log('show conditions')}>
+          <Text style={{fontSize: 10, color: 'black'}}> see tax law</Text>
+        </Pressable>
+        </>
+      )
+      }
     </View>
   );
 };
@@ -59,15 +210,19 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    margin: 10,
+    marginTop: 100,
+    // justifyContent: 'center',
     alignItems: 'center',
   },
   box: {
-    width: '60%',
+    width: '80%',
+    flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'lightblue',
+    backgroundColor: '#e8ffd9',
+    justifyContent: 'space-between',
     padding: 20,
-    borderRadius: 10,
+    borderRadius: 5,
   },
   numberText: {
     fontSize: 24,
@@ -76,12 +231,10 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 24,
     fontWeight: 'bold',
-    padding: 20,
   },
   yearText: {
     fontSize: 18,
     fontWeight: 'bold',
-    padding: 10,
     paddingBottom: 20,
   },
   button: {
@@ -105,18 +258,24 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
   },
   gridItem: {
     width: '30%',
     margin: '1%',
     padding: '3%',
-    backgroundColor: 'lightblue',
-    borderRadius: 10,
+    backgroundColor: 'white',
+    shadowColor: 'gray',
+    shadowRadius: 1,
+    shadowOpacity: 10,
+    borderRadius: 5,
   },
   itemText: {
     textAlign: 'center',
   },
+  label: { fontSize: 16, marginTop: 20 },
+  input: { borderWidth: 1, padding: 10, marginVertical: 5 },
+  result: { fontSize: 18, fontWeight: 'bold', color: '#2ECC71', marginTop: 20 },
 });
 
 export default HomeScreen;

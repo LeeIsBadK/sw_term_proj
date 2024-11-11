@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, Button, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-
 
 const ProfileScreen = () => {
   const [userData] = useState({
@@ -10,9 +8,6 @@ const ProfileScreen = () => {
     nationalID: '1234567890',
     address: '123 Main Street, Anytown, CA 12345',
   });
-
-  const navigation = useNavigation();
-
 
   return (
     <View style={styles.container}>
@@ -26,7 +21,7 @@ const ProfileScreen = () => {
       </ScrollView>
       <View style={styles.buttonContainer}>
         <Button title="Settings" />
-        <Button title="Sign Out" onPress={() => {navigation.navigate('index')}}/>
+        <Button title="Sign Out" />
       </View>
     </View>
   );
