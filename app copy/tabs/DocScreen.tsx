@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {ScrollView, View, Text, Image, Pressable, StyleSheet, Picker, Modal } from 'react-native';
+// import RNPickerSelect from 'react-native-picker-select';
 import ModalDropdown from 'react-native-modal-dropdown';
-import { Ionicons } from '@expo/vector-icons';
+// import { Picker } from '@react-native-picker/picker';
 
 const DocScreen = () => {
   const [selectedYear, setSelectedYear] = useState('2567');
@@ -22,28 +23,28 @@ const DocScreen = () => {
     {
       id: 1,
       image: require('../../assets/images/icon.png'),
-      name: 'เอกสาร 1',
+      name: 'Item 1',
       type: 'รายได้หลัก',
       year: '2567',
     },
     {
       id: 2,
       image: require('../../assets/images/icon.png'),
-      name: 'เอกสาร 2',
+      name: 'Item 2',
       type: 'ค่าตอบแทนเป็นครั้งคราว',
       year: '2567',
     },
     {
       id: 3,
       image: require('../../assets/images/icon.png'),
-      name: 'เอกสาร 3',
+      name: 'Item 3',
       type: 'ค่าตอบแทนเป็นครั้งคราว',
       year: '2567',
     },
     {
       id: 4,
       image: require('../../assets/images/icon.png'),
-      name: 'เอกสาร 4',
+      name: 'Item 4',
       type: 'ค่าตอบแทนเป็นครั้งคราว',
       year: '2567',
     },
@@ -57,42 +58,42 @@ const DocScreen = () => {
     {
       id: 6,
       image: require('../../assets/images/icon.png'),
-      name: 'เอกสาร 6',
+      name: 'Item 6',
       type: 'การบริจาคตามโรงพยาบาลและโรงเรียน',
       year: '2567',
     },
     {
       id: 7,
       image: require('../../assets/images/icon.png'),
-      name: 'เอกสาร 7',
+      name: 'Item 7',
       type: 'การได้รางวัล',
       year: '2567',
     },
     {
       id: 8,
       image: require('../../assets/images/icon.png'),
-      name: 'เอกสาร 8',
+      name: 'Item 8',
       type: 'การดูแลบิดามารดาหรือบุตร',
       year: '2567',
     },
     {
       id: 9,
       image: require('../../assets/images/icon.png'),
-      name: 'เอกสาร 9',
+      name: 'Item 9',
       type: 'การดูแลบิดามารดาหรือบุตร',
       year: '2567',
     },
     {
       id: 10,
       image: require('../../assets/images/icon.png'),
-      name: 'เอกสาร 10',
+      name: 'Item 10',
       type: 'ประวัติของผู้เสียภาษี',
       year: '2566',
     },
     {
       id: 11,
       image: require('../../assets/images/icon.png'),
-      name: 'เอกสาร 11',
+      name: 'Item 11',
       type: 'ประวัติของผู้เสียภาษี',
       year: '2565',
     },
@@ -172,7 +173,7 @@ const DocScreen = () => {
   const TypePicker = () => {
     return (
       <View style={styles.typePicker}>
-        <Text style={{fontFamily: 'Kanit'}}> ประเภท </Text>
+        <Text> ประเภท </Text>
         <ModalDropdown
             defaultIndex={0}
             defaultValue={selectedType}
@@ -197,8 +198,8 @@ const DocScreen = () => {
           <TypePicker/>
         </View>
 
-        <Pressable style={styles.filterButton} onPress={() => {}}>
-          <Text style={{fontFamily: 'Kanit'}}>Filter/Sort</Text>
+        <Pressable style={styles.filterButton} onPress={toggleModal}>
+          <Text>Filter/Sort</Text>
         </Pressable>
       </View>
       <FilterModal
@@ -217,8 +218,7 @@ const DocScreen = () => {
                 <View style={{ width: 'auto'}}><Text numberOfLines={1} ellipsizeMode="tail" style={styles.itemType}>{item.type}</Text></View>
               </View>
               <Pressable style={styles.editButton}>
-                <Ionicons name={'create-outline'} size={25} color={'gray'}/>
-                {/* <Text>Edit</Text> */}
+                <Text>Edit</Text>
               </Pressable>
             </View>
           </View> 
@@ -272,16 +272,15 @@ const styles = StyleSheet.create({
   },
   itemName: {
     fontSize: 16,
-    fontFamily: 'Kanit',
     fontWeight: 'bold',
     marginTop: 4,
   },
   itemType: {
     fontSize: 10,
-    fontFamily: 'Kanit',
     color: 'gray', 
   },
   editButton: {
+    backgroundColor: 'lightblue',
     padding: 5,
     borderRadius: 5,
   },
@@ -299,7 +298,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   filterButton: {
-    backgroundColor: 'lightgreen',
+    backgroundColor: '#007bff',
     padding: 10,
     borderRadius: 5,
   },
@@ -345,7 +344,6 @@ const styles = StyleSheet.create({
   truncatedText: {
     fontSize: 14,
     fontWeight: 'bold',
-    fontFamily: 'Kanit',
     color: '#3FC385',
     overflow: 'hidden',
     textOverflow: 'ellipsis', 
