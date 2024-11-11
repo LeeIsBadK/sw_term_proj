@@ -15,22 +15,22 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/taxpen.png')} style={styles.logo} />
+      <Image source={require('../assets/images/icon.png')} style={styles.logo} />
       <TextInput
         style={styles.input}
-        placeholder="ชื่อผู้ใช้"
+        placeholder="Username"
         onChangeText={setUsername}
         value={username}
       />
       <TextInput
         style={styles.input}
-        placeholder="รหัสผ่าน"
+        placeholder="Password"
         onChangeText={setPassword}
         value={password}
         secureTextEntry
       />
       <Pressable style={styles.button} onPress={handleLogin}>
-        <Text style={styles.text}>{"เข้าสู่ระบบ"}</Text>
+        <Text style={styles.text}>{"Login"}</Text>
       </Pressable>
     </View>
   );
@@ -53,8 +53,6 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '80%',
-    fontFamily: 'Kanit',
-    fontWeight: 'light',
     padding: 10,
     marginBottom: 10,
     borderWidth: 1,
@@ -79,8 +77,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontFamily: 'Kanit',
     lineHeight: 21,
+    fontWeight: 'bold',
     letterSpacing: 0.25,
     color: 'white',
   },

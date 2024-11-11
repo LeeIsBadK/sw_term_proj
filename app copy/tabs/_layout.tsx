@@ -4,7 +4,6 @@ import React from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { Ionicons } from '@expo/vector-icons';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -22,10 +21,6 @@ export default function TabLayout() {
           backgroundColor: '#98E6AE',
           height: 60, // Increase the height of the tab bar
         },
-        tabBarLabelStyle: {
-          fontFamily: 'Kanit',
-          marginBottom: 4,
-        },
         tabBarIconStyle: {
           marginBottom: 1, // Add some margin to the bottom of the icon
         },
@@ -34,7 +29,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="HomeScreen"
         options={{
-          title: 'หน้าหลัก',
+          title: 'Home',
           tabBarIcon: ({ focused }) => (
             <TabBarIcon name={focused ? 'home' : 'home-outline'}/>
           ),
@@ -44,47 +39,40 @@ export default function TabLayout() {
       <Tabs.Screen
         name="TaxScreen"
         options={{
-          title: 'ภาษี',
+          title: 'Tax',
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'document' : 'document-outline'} color={color} size={25}/>
+            <TabBarIcon name={focused ? 'document' : 'document-outline'} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="AddScreen"
         options={{
-          title: 'เพิ่ม',
+          title: 'Add',
           tabBarIcon: ({ color, focused }) => (
             // <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
-            <Ionicons name={focused ? 'add-circle' : 'add-circle-outline'} color={color} size={25}/>
+            <>
+              <TabBarIcon name={focused ? 'square' : 'square-outline'} color={color} />
+              <TabBarIcon name="add" size={16} color={focused ? '#3FC385' : color} style={{ position: 'absolute', right: 5, top: 15 }} />
+            </>
           ),
         }}
       />
       <Tabs.Screen
         name="DocScreen"
         options={{
-          title: 'เอกสาร',
+          title: 'Documents',
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'folder' : 'folder-outline'} color={color} size={25}/>
+            <TabBarIcon name={focused ? 'folder' : 'folder-outline'} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="ProfileScreen"
         options={{
-          title: 'โปรไฟล์',
+          title: 'Profile',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
-          ),
-        }}
-        
-      />
-      <Tabs.Screen
-        name="file_upload"
-        options={{
-          title: 'File Upload',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'cloud-upload' : 'cloud-upload-outline'} color={color} />
           ),
         }}
       />
