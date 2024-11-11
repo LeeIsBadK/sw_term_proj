@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { useNavigation } from 'expo-router';
 
 const TaxCalculatorScreen: React.FC = () => {
   const [income, setIncome] = useState<number>(0);
@@ -8,21 +9,28 @@ const TaxCalculatorScreen: React.FC = () => {
   const [donations, setDonations] = useState<number>(0);
   const [taxAmount, setTaxAmount] = useState<number | null>(null);
 
+  // Declare the navigation hook at the top level
+  const navigation = useNavigation();
+
   const calculateTax = () => {
-    // คำนวณเงินได้สุทธิ
+    // Calculate net income
     const netIncome = income - expenses - deductions - donations;
 
-    // คำนวณภาษีตามวิธีที่ 1: จากเงินได้สุทธิ
+    // Calculate tax method 1: based on net income
     const taxFromNetIncome = calculateTaxFromNetIncome(netIncome);
 
-    // คำนวณภาษีตามวิธีที่ 2: จากเงินได้พึงประเมิน
+    // Calculate tax method 2: based on assessable income
     const taxFromAssessableIncome = calculateTaxFromAssessableIncome(income);
 
-    // เลือกภาษีที่สูงกว่า
+    // Choose the higher tax
     const finalTax = Math.max(taxFromNetIncome, taxFromAssessableIncome);
     setTaxAmount(finalTax);
-  };
 
+    // // Navigate to ScreenB with the taxAmount parameter
+    // (navigation as any).navigate('HomeScreen', {
+    //   taxAmount: finalTax,
+    // });
+  };
   // ฟังก์ชันคำนวณภาษีตามวิธีที่ 1 จากเงินได้สุทธิ
   const calculateTaxFromNetIncome = (netIncome: number): number => {
     if (netIncome <= 150000) return 0;
@@ -71,6 +79,14 @@ const TaxCalculatorScreen: React.FC = () => {
         onChangeText={(value) => setDonations(parseFloat(value) || 0)}
       />
       <Button title="คำนวณภาษี" onPress={calculateTax} />
+      <div
+      style={{flexDirection: 'row', justifyContent: 'space-between', width: '80%', marginBottom: 20}} 
+      >
+
+      </div>
+      <Button title="บันทึกภาษีปีนี้" onPress={() => (navigation as any).navigate('HomeScreen',{
+        taxAmount: taxAmount
+      })} />
       {taxAmount !== null && (
         <Text style={styles.result}>ภาษีที่ต้องจ่าย: {taxAmount.toFixed(2)} บาท</Text>
       )}
