@@ -42,7 +42,7 @@ const TaxCalculatorScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>เงินได้พึงประเมิน (ม.ค. - มิ.ย. 2565):</Text>
+      <Text style={styles.label}>เงินได้พึงประเมิน:</Text>
       <TextInput
         style={styles.input}
         keyboardType="numeric"

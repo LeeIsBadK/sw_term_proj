@@ -2,9 +2,14 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Pressable, Button} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import SwitchSelector from 'react-native-switch-selector';
+import { useFonts } from 'expo-font';
+
 
 
 const HomeScreen = () => {
+  useFonts({'Kanit': require('../../assets/fonts/Kanit-Regular.ttf')});
+
+
   const [number, setNumber] = useState(123456);
   const [tax, setTax] = useState(123456)
   const [deduction, setDeduction] = useState(1000);
@@ -115,7 +120,7 @@ const HomeScreen = () => {
       {showForm ?
       (
         <>
-        <Text style={styles.label}>เงินได้พึงประเมิน (ม.ค. - มิ.ย. 2565):</Text>
+        <Text style={styles.label}>เงินได้พึงประเมิน :</Text>
         <TextInput
           style={styles.input}
           keyboardType="numeric"
@@ -227,7 +232,7 @@ const styles = StyleSheet.create({
   numberText: {
     fontSize: 28,
     fontWeight: 'medium',
-    fontFamily: 'Kanit',
+    fontFamily: 'Kanit.',
   },
   header: {
     fontSize: 24,

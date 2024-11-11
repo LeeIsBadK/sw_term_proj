@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, Button, StyleSheet, Image, TouchableOpacity, Pressable } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, ScrollView, Button, StyleSheet, Image, TouchableOpacity, Pressable, Linking } from 'react-native';
+import { Link, useNavigation } from '@react-navigation/native';
 // import RNDropDownPicker from 'react-native-dropdown-picker';
 // import Icon from 'react-native-vector-icons/FontAwesome';
+import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import ModalDropdown from 'react-native-modal-dropdown';
+
 
 
 const ActionButton = ({ onPress, iconName, title }) => {
@@ -16,6 +18,8 @@ const ActionButton = ({ onPress, iconName, title }) => {
   );
 };
 const TaxScreen = () => {
+
+
   const [open, setOpen] = useState(false);
   const [selectedYear, setSelectedYear] = useState('2567');
   const [imageUrl, setImageUrl] = useState('https://static.vecteezy.com/system/resources/previews/011/063/921/non_2x/example-button-speech-bubble-example-colorful-web-banner-illustration-vector.jpg'); // Default image
@@ -50,7 +54,6 @@ const TaxScreen = () => {
     '2563',
   ];
 
-  const navigation = useNavigation();
 
   useEffect(() => {
     const selectedImage = imageData.find(image => image.value === selectedYear);
@@ -100,7 +103,9 @@ const TaxScreen = () => {
               <Text> แนะนำ</Text>
             </Pressable> */}
             <ActionButton
-            onPress={() => {}}
+            onPress={() => {
+              router.replace('/chat');
+            }}
             iconName="information-circle-outline"
             title="แนะนำ"
           />

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, ScrollView } from 'react-native';
+import { router } from 'expo-router';
 import getTaxAnswer from '@/library/chatAI';
 
 const Chat: React.FC = () => {
     const [messages, setMessages] = useState<{ user: string; text: string }[]>([]);
     const [input, setInput] = useState('');
+    const [isLoading, setIsLoading] = useState(false); // Add state to track loading
 
     const handleSend = async () => {
         if (!input.trim()) return;
@@ -17,6 +19,9 @@ const Chat: React.FC = () => {
 
         // Clear the input field
         setInput('');
+
+        // Show "AI is responding" message
+        setIsLoading(true);
 
         try {
             const response = await getTaxAnswer(input);
@@ -62,8 +67,11 @@ const Chat: React.FC = () => {
                 ...prevMessages,
                 { user: 'AI', text: 'Error retrieving response. Please try again.' },
             ]);
+        } finally {
+            // Hide the "AI is responding" message once done
+            setIsLoading(false);
         }
-    }
+    };
 
     return (
         <View style={styles.container}>
@@ -75,6 +83,11 @@ const Chat: React.FC = () => {
                         <Text style={styles.messageText}>{message.text}</Text>
                     </View>
                 ))}
+                {isLoading && (
+                    <View style={styles.loadingContainer}>
+                        <Text style={styles.loadingText}>AI is responding...</Text>
+                    </View>
+                )}
             </ScrollView>
 
             <View style={styles.inputContainer}>
@@ -85,7 +98,12 @@ const Chat: React.FC = () => {
                     placeholder="Type your message here..."
                     placeholderTextColor="#888"
                 />
-                <Button title="Send" onPress={handleSend} style={styles.sendButton} />
+                <View style={styles.sendButton}>
+                    <Button title="Send" color={"#3FC385"} onPress={handleSend} />
+                </View>
+                <View style={styles.leaveButton}>
+                    <Button title="Leave chat" color={"orange"} onPress={() => router.replace('/tabs/TaxScreen')} />
+                </View>
             </View>
         </View>
     );
@@ -141,6 +159,18 @@ const styles = StyleSheet.create({
     },
     sendButton: {
         padding: 10,
+    },
+    loadingContainer: {
+        marginTop: 10,
+        alignItems: 'center',
+    },
+    loadingText: {
+        fontStyle: 'italic',
+        color: '#888',
+    },
+    leaveButton: {
+        padding: 10,
+        color: '#f00',
     },
 });
 
