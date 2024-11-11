@@ -153,7 +153,7 @@ const HomeScreen = () => {
         </>
       ):(
         <>
-        <Text style={styles.header}> YOUR TAX THIS YEAR </Text>
+        <Text style={styles.header}>ภาษีของคุณในปีนี้</Text>
         <Text style={styles.yearText}> {currentYear + 543} </Text>
         <SwitchSelector style={{width: 200}}
           options={[{ label: "deducted tax", value: false }, { label: "full tax", value: true }]}
@@ -169,7 +169,7 @@ const HomeScreen = () => {
           onPress={(value) => toggleTaxDisplay(value)}
         />
         <View style={{ alignItems: 'center'}}>
-          <Text style={[styles.numberText, {fontSize: 48}]}> {formattedNumber(showFullNumber, number)} </Text>
+          <Text style={[styles.numberText, {fontSize: 64}]}> {formattedNumber(showFullNumber, number)} </Text>
           <Pressable onPress={toggleNumberVisibility}>
             <Ionicons name={showFullNumber ? "eye-outline": "eye-off-outline"} size={24} color="lightgray" />
           </Pressable>
@@ -179,8 +179,8 @@ const HomeScreen = () => {
         </View>
         <View style={styles.box}>
           <View>
-            <Text style={[styles.numberText, {fontSize: 14}]}> Deduction </Text>
-            <Text style={[styles.numberText, {fontSize: 10, color: '#3FC385'}]}> see details </Text>
+            <Text style={[{fontSize: 14, fontFamily: 'Kanit', fontWeight: 'regular'}]}>คุณลดหย่อนภาษีไป</Text>
+            <Text style={[{fontSize: 12, color: '#3FC385', fontFamily: 'Kanit', fontWeight: 'light', marginBottom: -5}]}>ดูเอกสาร</Text>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Text style={styles.numberText}> {formattedNumber(showDeduction, deduction)} </Text>
@@ -197,8 +197,8 @@ const HomeScreen = () => {
           ))}
         </View>
         <View style={{flex: 1}}></View>
-        <Pressable onPress={() => console.log('show conditions')}>
-          <Text style={{fontSize: 10, color: 'black'}}> see tax law</Text>
+        <Pressable style={{width: '70%', height: 30}} onPress={() => console.log('show conditions')}>
+          <View style={{backgroundColor: 'black', borderRadius: 5, width: '100%', height: '100%', alignItems: 'center', justifyContent: 'center'}}><Text style={{fontSize: 10, color: 'white', fontFamily: 'Kanit'}}>ดูกฎระเบียบการเสียภาษีและการลดหย่อนภาษี</Text></View>
         </Pressable>
         </>
       )
@@ -225,17 +225,21 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   numberText: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 28,
+    fontWeight: 'medium',
+    fontFamily: 'Kanit',
   },
   header: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: 'medium',
+    fontFamily: 'Kanit',
   },
   yearText: {
+    color: '#F20091',
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: 'regular',
     paddingBottom: 20,
+    fontFamily: 'Kanit',
   },
   button: {
     width: 140,
@@ -261,7 +265,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   gridItem: {
-    width: '30%',
+    width: '31%',
     margin: '1%',
     padding: '3%',
     backgroundColor: 'white',

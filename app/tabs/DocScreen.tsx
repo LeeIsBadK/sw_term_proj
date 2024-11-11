@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import {ScrollView, View, Text, Image, Pressable, StyleSheet, Picker, Modal } from 'react-native';
-// import RNPickerSelect from 'react-native-picker-select';
 import ModalDropdown from 'react-native-modal-dropdown';
-// import { Picker } from '@react-native-picker/picker';
+import { Ionicons } from '@expo/vector-icons';
 
 const DocScreen = () => {
   const [selectedYear, setSelectedYear] = useState('2567');
@@ -23,28 +22,28 @@ const DocScreen = () => {
     {
       id: 1,
       image: require('../../assets/images/icon.png'),
-      name: 'Item 1',
+      name: 'เอกสาร 1',
       type: 'รายได้หลัก',
       year: '2567',
     },
     {
       id: 2,
       image: require('../../assets/images/icon.png'),
-      name: 'Item 2',
+      name: 'เอกสาร 2',
       type: 'ค่าตอบแทนเป็นครั้งคราว',
       year: '2567',
     },
     {
       id: 3,
       image: require('../../assets/images/icon.png'),
-      name: 'Item 3',
+      name: 'เอกสาร 3',
       type: 'ค่าตอบแทนเป็นครั้งคราว',
       year: '2567',
     },
     {
       id: 4,
       image: require('../../assets/images/icon.png'),
-      name: 'Item 4',
+      name: 'เอกสาร 4',
       type: 'ค่าตอบแทนเป็นครั้งคราว',
       year: '2567',
     },
@@ -58,42 +57,42 @@ const DocScreen = () => {
     {
       id: 6,
       image: require('../../assets/images/icon.png'),
-      name: 'Item 6',
+      name: 'เอกสาร 6',
       type: 'การบริจาคตามโรงพยาบาลและโรงเรียน',
       year: '2567',
     },
     {
       id: 7,
       image: require('../../assets/images/icon.png'),
-      name: 'Item 7',
+      name: 'เอกสาร 7',
       type: 'การได้รางวัล',
       year: '2567',
     },
     {
       id: 8,
       image: require('../../assets/images/icon.png'),
-      name: 'Item 8',
+      name: 'เอกสาร 8',
       type: 'การดูแลบิดามารดาหรือบุตร',
       year: '2567',
     },
     {
       id: 9,
       image: require('../../assets/images/icon.png'),
-      name: 'Item 9',
+      name: 'เอกสาร 9',
       type: 'การดูแลบิดามารดาหรือบุตร',
       year: '2567',
     },
     {
       id: 10,
       image: require('../../assets/images/icon.png'),
-      name: 'Item 10',
+      name: 'เอกสาร 10',
       type: 'ประวัติของผู้เสียภาษี',
       year: '2566',
     },
     {
       id: 11,
       image: require('../../assets/images/icon.png'),
-      name: 'Item 11',
+      name: 'เอกสาร 11',
       type: 'ประวัติของผู้เสียภาษี',
       year: '2565',
     },
@@ -173,7 +172,7 @@ const DocScreen = () => {
   const TypePicker = () => {
     return (
       <View style={styles.typePicker}>
-        <Text> ประเภท </Text>
+        <Text style={{fontFamily: 'Kanit'}}> ประเภท </Text>
         <ModalDropdown
             defaultIndex={0}
             defaultValue={selectedType}
@@ -198,8 +197,8 @@ const DocScreen = () => {
           <TypePicker/>
         </View>
 
-        <Pressable style={styles.filterButton} onPress={toggleModal}>
-          <Text>Filter/Sort</Text>
+        <Pressable style={styles.filterButton} onPress={() => {}}>
+          <Text style={{fontFamily: 'Kanit'}}>Filter/Sort</Text>
         </Pressable>
       </View>
       <FilterModal
@@ -218,7 +217,8 @@ const DocScreen = () => {
                 <View style={{ width: 'auto'}}><Text numberOfLines={1} ellipsizeMode="tail" style={styles.itemType}>{item.type}</Text></View>
               </View>
               <Pressable style={styles.editButton}>
-                <Text>Edit</Text>
+                <Ionicons name={'create-outline'} size={25} color={'gray'}/>
+                {/* <Text>Edit</Text> */}
               </Pressable>
             </View>
           </View> 
@@ -272,15 +272,16 @@ const styles = StyleSheet.create({
   },
   itemName: {
     fontSize: 16,
+    fontFamily: 'Kanit',
     fontWeight: 'bold',
     marginTop: 4,
   },
   itemType: {
     fontSize: 10,
+    fontFamily: 'Kanit',
     color: 'gray', 
   },
   editButton: {
-    backgroundColor: 'lightgray',
     padding: 5,
     borderRadius: 5,
   },
@@ -344,6 +345,7 @@ const styles = StyleSheet.create({
   truncatedText: {
     fontSize: 14,
     fontWeight: 'bold',
+    fontFamily: 'Kanit',
     color: '#3FC385',
     overflow: 'hidden',
     textOverflow: 'ellipsis', 

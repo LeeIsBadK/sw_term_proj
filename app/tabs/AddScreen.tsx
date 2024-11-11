@@ -155,7 +155,7 @@ const AddScreen = () => {
       <ScrollView>
         {categories.map((category, index) => (
           <View key={index} style={styles.categoryContainer}>
-            <Text style={styles.categoryTitle}>{category.title}</Text>  
+            <Text style={[styles.categoryTitle, styles.font]}>{category.title}</Text>  
   
             <View style={styles.gridContainer}>
               {category.items.map((item) => (
@@ -172,7 +172,7 @@ const AddScreen = () => {
                     source={{ uri: `../../assets/doctypeicon/${item.id}.png` }} // Image source
                     style={styles.icon}
                   />
-                  <Text>{item.name}</Text>
+                  <Text style={[styles.font, {fontSize: 13}]}>{item.name}</Text>
                 </Pressable>
               ))}
             </View>
@@ -190,10 +190,10 @@ const AddScreen = () => {
           <Image source={{ uri: selectedImage }} style={[styles.image, {height: '10%'}]} />
           <TypeSelector></TypeSelector>
           <Pressable style={[styles.typeButton, {backgroundColor: 'white'}]} onPress={handleChoose}>
-            <Text style={{color: 'gray'}}> Change Picture </Text>
+            <Text style={[styles.font, {color: 'gray'}]}>เปลี่ยนรูปภาพ</Text>
           </Pressable>
           <Pressable style={[styles.typeButton, {backgroundColor: selectedType ? '#3FC385': 'gray'}]} onPress={selectedType? handleChoose : null }>
-            <Text style={{color: selectedType ? 'white': 'lightgray'}}> Confirm </Text>
+            <Text style={[styles.font, {color: selectedType ? 'white': 'lightgray'}]}>ยืนยัน</Text>
           </Pressable>
           </>
         ) : (
@@ -208,16 +208,16 @@ const AddScreen = () => {
         <View style={styles.imageButtons}>
           <Pressable style={styles.pickerButton} onPress={takePhoto}>
             <Ionicons name="camera" size={24} color="black" />
-            <Text> Take a photo </Text>
+            <Text style={[styles.font, {marginLeft: 10}]}>ถ่ายรูปภาพ</Text>
           </Pressable>
           <View style={styles.divider} />
           <Pressable style={styles.pickerButton} onPress={pickImage}>
             <Ionicons name="image" size={24} color="black" />
-            <Text> Choose from gallery </Text>
+            <Text style={[styles.font, {marginLeft: 10}]}>เลือกภาพจากแกเลอรี่</Text>
           </Pressable>
         </View>
         <Pressable style={[styles.typeButton, {backgroundColor: selectedImage ? '#3FC385': 'gray'}]} onPress={handleChoose}>
-          <Text style={{color: selectedImage ? 'white': 'lightgray'}}> Choose document type </Text>
+          <Text style={[styles.font, {color: selectedImage ? 'white': 'lightgray'}]}>เลือกประเภทของเอกสาร</Text>
         </Pressable>
         </>
         )
@@ -227,6 +227,9 @@ const AddScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  font: {
+    fontFamily: 'Kanit'
+  },
   container: {
     backgroundColor: '#E2E2E2',
     flex: 1,
