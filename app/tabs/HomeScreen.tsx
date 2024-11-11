@@ -1,25 +1,20 @@
 import React, { useState } from 'react';
+import { useRoute } from '@react-navigation/native';
 import { View, Text, StyleSheet } from 'react-native';
-import { useRoute, RouteProp } from '@react-navigation/native';
-
-type RootStackParamList = {
-  HomeScreen: { taxAmount: number };
-};
-
-type HomeScreenRouteProp = RouteProp<RootStackParamList, 'HomeScreen'>;
 
 const HomeScreen = () => {
-  const route = useRoute<HomeScreenRouteProp>();
-  const { taxAmount } = route.params;
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
 
-  const [currentYear] = useState(new Date().getFullYear());
+  // Get route and safely destructure params with fallback
+  const route = useRoute();
+  const { taxAmount = 0 } = route.params || {}; // Fallback to 0 if taxAmount is undefined
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}> YOUR TAX THIS YEAR </Text>
-      <Text style={styles.yearText}> {currentYear} </Text>
+      <Text style={styles.header}>YOUR TAX THIS YEAR</Text>
+      <Text style={styles.yearText}>{currentYear}</Text>
       <View style={styles.box}>
-        <Text style={styles.numberText}> {taxAmount} </Text>
+        <Text style={styles.numberText}>{taxAmount}</Text>
       </View>
     </View>
   );

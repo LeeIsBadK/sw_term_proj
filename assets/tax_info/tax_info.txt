@@ -1,0 +1,56 @@
+## Thai Personal Income Tax Rates
+
+**A Ladder-Based Tax System**
+
+Thailand employs a ladder-based tax system for individual income tax, meaning the tax rate increases progressively as income rises. 
+
+| Taxable Income (Baht/Year) | Tax Rate |
+|---|---|
+| 0 - 150,000 | Exempt |
+| 150,001 - 300,000 | 5% |
+| 300,001 - 500,000 | 10% |
+| 500,001 - 750,000 | 15% |
+| 750,001 - 1,000,000 | 20% |
+| 1,000,001 - 2,000,000 | 25% |
+| 2,000,001 - 4,000,000 | 30% |
+| Over 4,000,000 | 35% |
+
+**Example 1:**
+
+If your taxable income is 400,000 Baht, you would calculate your tax as follows:
+
+1. **First 150,000 Baht:** Exempt from tax.
+2. **Next 150,000 Baht (150,001 - 300,000):** Taxed at 5%. This amounts to 7,500 Baht.
+3. **Remaining 100,000 Baht (300,001 - 400,000):** Taxed at 10%. This amounts to 10,000 Baht.
+
+**Total Tax:** 7,500 + 10,000 = 17,500 Baht.
+
+**Example 2:**
+
+If your taxable income is 1,100,000 Baht, you would calculate your tax as follows:
+
+1. **First 150,000 Baht:** Exempt from tax.
+2. **Next 150,000 Baht (150,001 - 300,000):** Taxed at 5%. This amounts to 7,500 Baht.
+3. **Next 200,000 Baht (300,001 - 500,000):** Taxed at 10%. This amounts to 20,000 Baht.
+4. **Next 250,000 Baht (500,001 - 750,000):** Taxed at 15%. This amounts to 37,500 Baht.
+5. **Remaining 150,000 Baht (750,001 - 900,000):** Taxed at 20%. This amounts to 30,000 Baht.
+
+**Total Tax:** 7,500 + 20,000 + 37,500 + 30,000 = 95,000 Baht.
+
+**Note:** An individual is considered a tax resident if they spend 180 days or more in Thailand in a calendar year.
+
+**Example 3:**
+
+Calculate the personal income tax for a person with a monthly salary of 50,000 baht
+
+
+To calculate the annual income tax, we first need to determine the annual salary:
+Annual Salary: 50,000 Baht/month * 12 months = 600,000 Baht   
+Now, we'll use the Thai income tax brackets to calculate the tax:
+
+First 150,000 Baht: Exempt from tax.
+Next 150,000 Baht (150,001 - 300,000): Taxed at 5%. This amounts to 7,500 Baht.   
+Remaining 300,000 Baht (300,001 - 600,000): Taxed at 10%. This amounts to 30,000 Baht.
+Total Tax: 7,500 + 30,000 = 37,500 Baht.
+
+Therefore, the annual income tax for a person with a monthly salary of 50,000 Baht is 37,500 Baht.
